@@ -1,4 +1,4 @@
-import GraphZ from '../src/index'
+import GraphZ from '../src/index';
 import Rect from "../src/shape/Rect";
 
 let graphZ = new GraphZ(<HTMLCanvasElement>document.getElementById('canvas'));
