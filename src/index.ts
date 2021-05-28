@@ -1,4 +1,5 @@
 import BaseShape from "./shape/BaseShape";
+import utils from "./utils/utils";
 
 class GraphZ {
 
@@ -19,8 +20,11 @@ class GraphZ {
 
     private initListener() {
         this._canvasEle.addEventListener('mousemove', e => {
-            console.log(e.clientX, e.clientY);
-            console.log(e);
+            let point = utils.calcMousePointOnCanvas(
+                this._canvasEle, {x: e.clientX, y: e.clientY});
+            this._shapes.forEach(shape => {
+                shape.isHovered = shape.isPointIn(point);
+            })
         })
     }
 
