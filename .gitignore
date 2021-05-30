@@ -1,8 +1,8 @@
 .DS_Store
 dist/electron/*
 dist/web/*
-build/*
-!build/icons
+.webpack-build/*
+!.webpack-build/icons
 node_modules/
 npm-debug.log
 npm-debug.log.*
@@ -10,4 +10,4 @@ thumbs.db
 !.gitkeep
 .idea
 dist
-build
+.webpack-build

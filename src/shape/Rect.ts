@@ -5,6 +5,7 @@ import pointInPolygon from 'point-in-polygon';
 
 export default class Rect implements BaseShape {
 
+
     isHovered: boolean;
 
     isSelected: boolean;
@@ -33,5 +34,13 @@ export default class Rect implements BaseShape {
         return pointInPolygon([point.x, point.y], [leftTop, rightTop, rightBottom, leftBottom]);
     }
 
+    invalidate(ctx: CanvasRenderingContext2D): void {
+        ctx.clearRect(
+            this.location.x - 10,
+            this.location.y - 10,
+            this.size.width + 20,
+            this.size.height + 20)
+        throw new Error('Method not implemented.');
+    }
 }
 

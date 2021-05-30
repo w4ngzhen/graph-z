@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx webpack serve --config build/webpack.example.config.js",
-    "build": "webpack -c build/webpack.example.config.js",
+    "dev": "npx webpack serve --config .webpack-build/webpack.example.config.js",
+    "build": "webpack -c .webpack-build/webpack.example.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,7 +21,6 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "babel-loader": "^8.2.2",
     "point-in-polygon": "^1.1.0"
   }
 }

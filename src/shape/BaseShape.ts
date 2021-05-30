@@ -9,6 +9,8 @@ export default interface BaseShape {
 
     isSelected: boolean;
 
+    location: Point;
+
     render(ctx: CanvasRenderingContext2D): any;
 
     /**
@@ -16,4 +18,9 @@ export default interface BaseShape {
      * @param point
      */
     isPointIn(point: Point): boolean;
+
+    /**
+     * 使得当前的图像无效（外部需要实现重绘）
+     */
+    invalidate(ctx: CanvasRenderingContext2D): void;
 }
