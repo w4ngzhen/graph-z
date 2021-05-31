@@ -45,8 +45,10 @@ class GraphZ {
                     candidateShape.isSelected = true;
                     idxOfSelected = idx;
                     this._dragMode = true;
+                    this._canvasEle.style.cursor = 'move';
                 } else {
                     candidateShape.isSelected = false;
+                    this._canvasEle.style.cursor = 'default';
                 }
             }
         });
@@ -54,6 +56,7 @@ class GraphZ {
         this._canvasEle.addEventListener('mouseup', e => {
             this._dragMode = false;
             this._mouseDownPosition = null;
+            this._canvasEle.style.cursor = 'default';
         })
 
         this._canvasEle.addEventListener('mousemove', e => {
@@ -61,14 +64,19 @@ class GraphZ {
             this._mousePosition = utils.calcMousePointOnCanvas(
                 this._canvasEle, {x: e.clientX, y: e.clientY});
 
-            let vector: Point = {
-                x: this._mousePosition.x - lastMousePotion.x,
-                y: this._mousePosition.y - lastMousePotion.y
-            };
-
+            let vector: Point;
+            if (!lastMousePotion) { // 处理第一次的mousemove事件
+                vector = {x: 0, y: 0};
+            } else {
+                vector = {
+                    x: this._mousePosition.x - lastMousePotion.x,
+                    y: this._mousePosition.y - lastMousePotion.y
+                };
+            }
 
             if (this._dragMode) {
                 let selectedShapes = this._shapes.filter(s => s.isSelected);
+                this._canvasEle.style.cursor = 'move';
                 selectedShapes.forEach(ss => {
                     let oldLocation = ss.location;
                     ss.location = {
@@ -85,6 +93,9 @@ class GraphZ {
     }
 
     addShape(shape: BaseShape) {
+        if (this._shapes.indexOf(shape) >= 0) {
+            return; // 已经添加了则直接返回
+        }
         this._shapes.push(shape);
     }
 
@@ -94,9 +105,6 @@ class GraphZ {
         })
     }
 
-    private invalidate() {
-        this._shapes.forEach(s => s.invalidate(this._ctx));
-    }
 
     start() {
         this._running = true;
