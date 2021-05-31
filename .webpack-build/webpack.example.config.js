@@ -1,11 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 module.exports = {
-  devtool: 'inline-source-map',
   mode: "development",
   entry: {
-    example: './src/example/example.ts',
-    index: './src/index.ts',
+    example: path.resolve(__dirname, '../example/example.ts'),
+    index: path.resolve(__dirname, '../src/index.ts'),
   },
   //输出文件出口
   output: {
@@ -14,16 +13,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
-        use: ['babel-loader']
-      },
-      {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        include: [
-          path.resolve(__dirname, '../src'),
-          path.resolve(__dirname, '../example')
-        ],
         exclude: /node_modules/
       }
     ]
