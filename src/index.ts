@@ -70,7 +70,6 @@ class GraphZ {
             if (this._dragMode) {
                 let selectedShapes = this._shapes.filter(s => s.isSelected);
                 selectedShapes.forEach(ss => {
-                    // ss.invalidate(this._ctx);
                     let oldLocation = ss.location;
                     ss.location = {
                         x: oldLocation.x + vector.x,
@@ -95,11 +94,16 @@ class GraphZ {
         })
     }
 
+    private invalidate() {
+        this._shapes.forEach(s => s.invalidate(this._ctx));
+    }
+
     start() {
         if (this._running) {
             return;
         }
         setInterval(() => {
+            this.invalidate();
             this.render();
         }, 50);
     }
