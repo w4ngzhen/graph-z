@@ -40,7 +40,6 @@ export default class Rect implements BaseShape {
             this.location.y - 10,
             this.size.width + 20,
             this.size.height + 20)
-        throw new Error('Method not implemented.');
     }
 }
 

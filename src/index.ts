@@ -99,13 +99,17 @@ class GraphZ {
     }
 
     start() {
-        if (this._running) {
+        this._running = true;
+        this.startRender();
+    }
+
+    private startRender() {
+        if (!this._running) {
             return;
         }
-        setInterval(() => {
-            this.invalidate();
-            this.render();
-        }, 50);
+        this._ctx.clearRect(0, 0, this._canvasEle.width, this._canvasEle.height);
+        this.render();
+        requestAnimationFrame(() => this.startRender());
     }
 }
 
