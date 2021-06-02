@@ -2,15 +2,34 @@
  * 基础类型定义
  */
 import Point from "../base/Point";
+import Size from "../base/Size";
 
 export default interface BaseShape {
 
+    /**
+     * 鼠标是否悬浮在当前图形
+     */
     isHovered: boolean;
 
+    /**
+     * 当前图形是否被选中
+     */
     isSelected: boolean;
 
+    /**
+     * 当前图形在画布上的位置
+     */
     location: Point;
+    /**
+     * 当前图形的大小
+     * 无论是哪种图形，我们都以矩形宽高作为图形的边界
+     */
+    size: Size;
 
+    /**
+     * 传入ctx由子类完成渲染
+     * @param ctx
+     */
     render(ctx: CanvasRenderingContext2D): any;
 
     /**

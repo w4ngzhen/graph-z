@@ -5,7 +5,6 @@ import pointInPolygon from 'point-in-polygon';
 
 export default class Rect implements BaseShape {
 
-
     isHovered: boolean;
 
     isSelected: boolean;
@@ -13,6 +12,13 @@ export default class Rect implements BaseShape {
     location: Point;
 
     size: Size;
+
+    constructor() {
+        this.isHovered = false;
+        this.isSelected = false;
+        this.location = {x: 0, y: 0};
+        this.size = {width: 0, height: 0};
+    }
 
     render(ctx: CanvasRenderingContext2D): any {
         ctx.save()
