@@ -1,10 +1,13 @@
-import BaseShape from "./shape/BaseShape";
+import BaseShape from "./canvas-element/shape/BaseShape";
 import utils from "./utils/Utils";
 import Point from "./base/Point";
+import {BaseLine} from "./canvas-element/line/BaseLine";
 
 class GraphZ {
 
     private readonly _shapes: Array<BaseShape>
+
+    private readonly _lines: Array<BaseLine>
 
     private _running: boolean = false
 
@@ -22,6 +25,7 @@ class GraphZ {
         this._canvasEle = canvasEle;
         this._ctx = this._canvasEle.getContext('2d');
         this._shapes = [];
+        this._lines = [];
         this.initListener();
     }
 
@@ -40,7 +44,7 @@ class GraphZ {
                     candidateShape.isSelected = false;
                     continue;
                 }
-                if (candidateShape.isPointIn(this._mouseDownPosition)) {
+                if (candidateShape.isPointIn(this._mouseDownPosition, this._ctx)) {
                     // 图形状态为选中；设置idx；进入拖拽模式。
                     candidateShape.isSelected = true;
                     idxOfSelected = idx;
@@ -86,8 +90,11 @@ class GraphZ {
                 })
             }
 
-            this._shapes.forEach(shape => {
-                shape.isHovered = shape.isPointIn(this._mousePosition);
+            this._shapes.forEach((shape, idx) => {
+                shape.isHovered = shape.isPointIn(this._mousePosition, this._ctx);
+            })
+            this._lines.forEach(line => {
+                line.isHovered = line.isPointOn(this._mousePosition, this._ctx);
             })
         })
     }
@@ -99,9 +106,20 @@ class GraphZ {
         this._shapes.push(shape);
     }
 
+
+    addLine(line: BaseLine) {
+        if (this._lines.indexOf(line) >= 0) {
+            return;
+        }
+        this._lines.push(line);
+    }
+
     private render() {
         this._shapes.forEach(shape => {
             shape.render(this._ctx);
+        })
+        this._lines.forEach(line => {
+            line.render(this._ctx);
         })
     }
 
@@ -119,6 +137,7 @@ class GraphZ {
         this.render();
         requestAnimationFrame(() => this.startRender());
     }
+
 }
 
 export default GraphZ

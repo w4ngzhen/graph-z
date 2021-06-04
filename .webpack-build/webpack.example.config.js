@@ -25,10 +25,10 @@ module.exports = {
       inject: 'body'
     })
   ],
-  // devServer: {
-  //   contentBase: path.join(__dirname, '../dist'),
-  //   port: 8080,
-  // },
+  devServer: {
+    contentBase: path.join(__dirname, '../dist'),
+    port: 8008,
+  },
   resolve: {
     extensions: ['.ts', '.js']
   },
